@@ -131,20 +131,20 @@ async function fetchAPI(input) {
 }
 
 // fetchAPI("goblin")
-// fetchAPI("adult-black-dragon")
+fetchAPI("adult-black-dragon")
 
-async function fetchAPI() {
-  const response = await fetch(`https://www.dnd5eapi.co/api/monsters`);
-  const monsters = await response.json();
-  console.log(monsters);
-  console.log(monsters.count);
+// async function fetchAPI() {
+//   const response = await fetch(`https://www.dnd5eapi.co/api/monsters`);
+//   const monsters = await response.json();
+//   console.log(monsters);
+//   console.log(monsters.count);
 
-  // console.log(monsters.results[monster].index);
+//   // console.log(monsters.results[monster].index);
 
-  loadMonsterList(monsters)
-}
+//   loadMonsterList(monsters)
+// }
 
-fetchAPI()
+// fetchAPI()
 
 // TO DO
 // Not all creatures have images + 
