@@ -1,5 +1,5 @@
 function createMonsterSheet(entry) {
-    const section = document.querySelector("section")
+    const section = document.querySelector("main")
 
     const section1 = document.createElement("section");
     const section2 = document.createElement("section");
@@ -97,3 +97,12 @@ fetchAPI("dwarf")
 // the ones that have images are AI generated
 // Find new source
 // Format page
+
+// The code below activates whenever you click on the page
+// Modify it to active the entry funtion whenever you click
+// An entries name
+// I'd like it to make a drop down
+
+// document.addEventListener('click', function(event) {
+//   console.log(event.target.textContent);
+// });
