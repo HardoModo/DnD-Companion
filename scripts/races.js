@@ -7,6 +7,15 @@ function createMonsterSheet(entry) {
     const section4 = document.createElement("section");
     const section5 = document.createElement("section");
 
+    const languageSection = document.createElement("section");
+    languageSection.setAttribute("id", "language")
+
+    const traitSection = document.createElement("section");
+    traitSection.setAttribute("id", "traits")
+
+    const profSection = document.createElement("section");
+    profSection.setAttribute("id", "start_prof")
+
     const race = document.createElement("h2");
     const speed = document.createElement("h2");
     const ability_bonuses = document.createElement("h2");
@@ -22,17 +31,19 @@ function createMonsterSheet(entry) {
 
     race.textContent = `Name: ${entry.name}`;
     speed.textContent = `Speed: ${entry.speed}`;
-    ability_bonuses.textContent = `Ability Bonus: ${entry.ability_bonuses}`;
+    ability_bonuses.textContent = `Ability Bonus: ${entry.ability_bonuses[0].ability_score.name} +${entry.ability_bonuses[0].bonus}`;
     age.textContent = `Age: ${entry.age}`;
     alignment.textContent = `Alignment: ${entry.alignment}`;
     size.textContent = `Size: ${entry.size}`;
     size_description.textContent = `Size Description: ${entry.size_description}`;
-    starting_proficiencies.textContent = `Starting Proficiencies: ${entry.starting_proficiencies}`;
-    languages.textContent = `Languages: ${entry.languages}`;
+    starting_proficiencies.textContent = `Starting Proficiencies:`;
+    languages.textContent = `Languages:`;
     language_desc.textContent = `Language Description: ${entry.language_desc}`;
-    traits.textContent = `Traits: ${entry.traits}`;
-    subraces.textContent = `Subraces: ${entry.subraces}`;
+    traits.textContent = `Traits:`;
+    subraces.textContent = `Subraces: ${entry.subraces[0].name}`;
 
+    console.log(entry.starting_proficiencies)
+    console.log(entry.starting_proficiencies[0].name)
 
     // img.src = `https://www.dnd5eapi.co${entry.image}`
 
@@ -44,17 +55,24 @@ function createMonsterSheet(entry) {
     section1.appendChild(alignment);
     section1.appendChild(size);
     section1.appendChild(size_description);
-    section1.appendChild(starting_proficiencies);
-    section1.appendChild(languages);
-    section1.appendChild(language_desc);
-    section1.appendChild(traits);
+    profSection.appendChild(starting_proficiencies);
+    languageSection.appendChild(language_desc);
+    languageSection.appendChild(languages);
+    traitSection.appendChild(traits);
     section1.appendChild(subraces);
 
     section.appendChild(section1);
     section.appendChild(section2);
+    section.appendChild(traitSection);
+    section.appendChild(languageSection);
+    section.appendChild(profSection);
     section.appendChild(section3);
     section.appendChild(section4);
     section.appendChild(section5);
+
+    displayTraits(entry)
+    displayLanguge(entry)
+    displayProf(entry)
 }
 
 function loadMonsterList(monsters) {
@@ -77,7 +95,6 @@ async function fetchAPI(input) {
 }
 
 fetchAPI("dwarf")
-// fetchAPI("adult-black-dragon")
 
 // async function fetchAPI() {
 //   const response = await fetch(`https://www.dnd5eapi.co/api/races`);
@@ -106,3 +123,36 @@ fetchAPI("dwarf")
 // document.addEventListener('click', function(event) {
 //   console.log(event.target.textContent);
 // });
+
+function displayTraits(entry) {
+  const traits = entry.traits
+  const section = document.getElementById("traits");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = trait.name;
+    section.appendChild(listItems);
+  }
+}
+
+function displayLanguge(entry) {
+  const traits = entry.languages
+  const section = document.getElementById("language");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = trait.name;
+    section.appendChild(listItems);
+  }
+}
+
+function displayProf(entry) {
+  const traits = entry.starting_proficiencies
+  const section = document.getElementById("start_prof");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = trait.name;
+    section.appendChild(listItems);
+  }
+}
