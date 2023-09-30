@@ -7,7 +7,9 @@ function createMonsterSheet(monster) {
     const section4 = document.createElement("section");
     const section5 = document.createElement("section");
     const proficiencySection = document.createElement("section");
-    const sensesSection = document.createElement("section");
+
+    const speedSection = document.createElement("section");
+    speedSection.setAttribute("id", "speed")
 
     const monsterName = document.createElement("h2");
     const monsterDesc = document.createElement("h2");
@@ -37,7 +39,6 @@ function createMonsterSheet(monster) {
 
     armorClass.textContent = `AC: ${JSON.stringify(monster.armor_class)}`;
     hitPointsInfo.textContent = `Hit Points: ${monster.hit_points} (${monster.hit_dice}) (${monster.hit_points_roll})`
-    speed.textContent = `Speed: ${JSON.stringify(monster.speed)}`;
 
     cha.textContent = `Charisma: ${monster.charisma}`;
     con.textContent = `Constitution: ${monster.constitution}`;
@@ -109,6 +110,13 @@ function createMonsterSheet(monster) {
     section.appendChild(section3);
     section.appendChild(section4);
     section.appendChild(section5);
+    section.appendChild(speedSection);
+
+    console.log(monster.speed)
+    console.log(Object.entries(monster.speed))
+    console.log(monster.speed.walk)
+    
+    displaySpeed(monster)
 }
 
 function loadMonsterList(monsters) {
@@ -160,3 +168,14 @@ fetchAPI("adult-black-dragon")
 // document.addEventListener('click', function(event) {
 //   console.log(event.target.textContent);
 // });
+
+function displaySpeed(entry) {
+  const traits = Object.entries(entry.speed)
+  const section = document.getElementById("speed");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait[0]} + ${trait[1]}`
+    section.appendChild(listItems);
+  }
+}

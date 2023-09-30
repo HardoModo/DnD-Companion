@@ -82,8 +82,6 @@ function createMonsterSheet(entry) {
   section.appendChild(classesSection);
   section.appendChild(subclassSection);
 
-  console.log(entry.damage.damage_type.name)
-  console.log(entry.damage.damage_at_slot_level)
   displayDamage(entry)
   displayClasses(entry)
   displaySubclasses(entry)
@@ -142,7 +140,6 @@ fetchAPI("acid-arrow")
 function displayDamage(entry) {
   const traits = entry.damage.damage_at_slot_level
   const section = document.getElementById("damage");
-  console.log(traits)
 
   for (const trait in traits) {
     const listItems = document.createElement("h2");
