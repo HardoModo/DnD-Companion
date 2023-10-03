@@ -7,6 +7,27 @@ function createMonsterSheet(entry) {
   const section4 = document.createElement("section");
   const section5 = document.createElement("section");
 
+  const proficiencyChoicesSection = document.createElement("section");
+  proficiencyChoicesSection.setAttribute("id", "proficiencyChoices")
+
+  const proficienciesSection = document.createElement("section");
+  proficienciesSection.setAttribute("id", "proficiencies")
+
+  const savingThrowsSection = document.createElement("section");
+  savingThrowsSection.setAttribute("id", "savingThrows")
+
+  const startingEquipmentSection = document.createElement("section");
+  startingEquipmentSection.setAttribute("id", "startingEquipment")
+
+  const startingEquipmentOptionsSection = document.createElement("section");
+  startingEquipmentOptionsSection.setAttribute("id", "startingEquipmentOptions")
+
+  const multiClassingSection = document.createElement("section");
+  multiClassingSection.setAttribute("id", "multiClassing")
+
+  const spellCastingSection = document.createElement("section");
+  spellCastingSection.setAttribute("id", "spellCasting")
+
   const name = document.createElement("h2");
   const hit_die = document.createElement("h2");
   const proficiency_choices = document.createElement("h2");
@@ -20,13 +41,6 @@ function createMonsterSheet(entry) {
 
   name.textContent = `Name: ${entry.name}`;
   hit_die.textContent = `Hit Die: ${entry.hit_die}`;
-  proficiency_choices.textContent = `Proficiency Choices: ${entry.proficiency_choices}`;
-  proficiencies.textContent = `Proficiencies: ${entry.proficiencies}`;
-  saving_throws.textContent = `Saving Throws: ${entry.saving_throws}`;
-  starting_equipment.textContent = `Starting Equipment: ${entry.starting_equipment}`;
-  starting_equipment_options.textContent = `Starting Equipment Options: ${entry.starting_equipment_options}`;
-  multi_classing.textContent = `Multi Classing: ${entry.multi_classing}`;
-  spellcasting.textContent = `Spell Casting: ${entry.spellcasting}`;
   spells.textContent = `Spells: ${entry.spells}`;
 
   // img.src = `https://www.dnd5eapi.co${entry.image}`
@@ -48,6 +62,22 @@ function createMonsterSheet(entry) {
   section.appendChild(section3);
   section.appendChild(section4);
   section.appendChild(section5);
+
+  section.appendChild(proficiencyChoicesSection)
+  section.appendChild(proficienciesSection)
+  section.appendChild(savingThrowsSection)
+  section.appendChild(startingEquipmentSection)
+  section.appendChild(startingEquipmentOptionsSection)
+  section.appendChild(multiClassingSection)
+  section.appendChild(spellCastingSection)
+
+  displayProficiencyChoices(entry)
+  displayProficiencies(entry)
+  displaySavingThrows(entry)
+  displayStartingEquipment(entry)
+  displayStartingEquipmentOptions(entry)
+  displayMultiClassing(entry)
+  displaySpellCasting(entry)  
 }
 
 function loadMonsterList(monsters) {
@@ -100,3 +130,103 @@ fetchAPI("druid")
 // document.addEventListener('click', function(event) {
 //   console.log(event.target.textContent);
 // });
+
+function displaySense(entry) {
+  const traits = Object.entries(entry.senses)
+  const section = document.getElementById("senses");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait[0]}: ${trait[1]}`
+    section.appendChild(listItems);
+  }
+}
+
+function displaySpecialAbilities(entry) {
+  const traits = entry.special_abilities
+  const section = document.getElementById("specialAbilities");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait.name}: ${trait.desc}`
+    section.appendChild(listItems);
+  }
+}
+
+function displayProficiencyChoices(entry) {
+  const traits = entry.proficiency_choices
+  const section = document.getElementById("proficiencyChoices");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait.desc}`
+    section.appendChild(listItems);
+  }
+}
+
+function displayProficiencies(entry) {
+  const traits = entry.proficiencies
+  const section = document.getElementById("proficiencies");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait.name}`
+    section.appendChild(listItems);
+  }
+}
+
+function displaySavingThrows(entry) {
+  const traits = entry.saving_throws
+  const section = document.getElementById("savingThrows");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait.name}`
+    section.appendChild(listItems);
+  }
+}
+
+function displayStartingEquipment(entry) {
+  const traits = entry.starting_equipment
+  const section = document.getElementById("startingEquipment");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait.equipment.name}`
+    section.appendChild(listItems);
+  }
+}
+
+function displayStartingEquipmentOptions(entry) {
+  const traits = entry.starting_equipment_options
+  const section = document.getElementById("startingEquipmentOptions");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait.desc}`
+    section.appendChild(listItems);
+  }
+}
+
+function displayMultiClassing(entry) {
+  const traits = entry.multi_classing.proficiencies
+  const section = document.getElementById("multiClassing");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait.name}`
+    section.appendChild(listItems);
+  }
+}
+
+function displaySpellCasting(entry) {
+  const traits = entry.spellcasting.info
+  const section = document.getElementById("spellCasting");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait.name}`
+    // listItems.textContent = `${trait.name}: ${trait.desc}`
+    section.appendChild(listItems);
+  }
+}
