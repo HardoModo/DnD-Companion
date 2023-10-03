@@ -11,6 +11,24 @@ function createMonsterSheet(monster) {
     const speedSection = document.createElement("section");
     speedSection.setAttribute("id", "speed")
 
+    const senseSection = document.createElement("section");
+    senseSection.setAttribute("id", "senses")
+
+    const specialAbilitiesSection = document.createElement("section");
+    specialAbilitiesSection.setAttribute("id", "specialAbilities")
+
+    const actionsSection = document.createElement("section");
+    actionsSection.setAttribute("id", "actions")
+
+    const legendaryActionsSection = document.createElement("section");
+    legendaryActionsSection.setAttribute("id", "legendaryActions")
+
+    const armorClassSection = document.createElement("section");
+    armorClassSection.setAttribute("id", "armorClass")
+
+    const proficienciesSection = document.createElement("section");
+    proficienciesSection.setAttribute("id", "proficiencies")
+
     const monsterName = document.createElement("h2");
     const monsterDesc = document.createElement("h2");
     const hitPointsInfo = document.createElement("h2");
@@ -37,7 +55,6 @@ function createMonsterSheet(monster) {
     monsterName.textContent = `Name: ${monster.name}`;
     monsterDesc.textContent = `${monster.size} ${monster.type}, ${monster.alignment}`
 
-    armorClass.textContent = `AC: ${JSON.stringify(monster.armor_class)}`;
     hitPointsInfo.textContent = `Hit Points: ${monster.hit_points} (${monster.hit_dice}) (${monster.hit_points_roll})`
 
     cha.textContent = `Charisma: ${monster.charisma}`;
@@ -47,32 +64,13 @@ function createMonsterSheet(monster) {
     int.textContent = `Intelligence: ${monster.intelligence}`;
     wis.textContent = `Wisdom: ${monster.wisdom}`;
 
-    const proficiencies = monster.proficiencies;
-    for (const proficiency of proficiencies) {
-      const listItem = document.createElement("h2");
-      listItem.textContent = JSON.stringify(proficiency);
-      proficiencySection.appendChild(listItem);
-    }
-
     dmgVulnerabilities.textContent = `Damage Vulnerabilities: ${monster.damage_vulnerabilities}`;
     dmgResistances.textContent = `Damage Resistances: ${monster.damage_resistances}`;
     dmgImmunities.textContent = `Damage Immunities: ${monster.damage_immunities}`;
     conditionalImmunities.textContent = `Condition Immunities: ${monster.condition_immunities}`;
 
-    senses.textContent = `Senses: ${JSON.stringify(monster.senses)}`;
-    // const senses = monster.senses;
-    // for (const sense of senses) {
-    //   const listItems = document.createElement("h2");
-    //   listItems.textContent = JSON.stringify(sense);
-    //   sensesSection.appendChild(listItems);
-    // }
-
     languages.textContent = `Languages: ${monster.languages}`;
-    challengeInfo.textContent = `Challenge: ${monster.challenge_rating} (${monster.xp} XP)`
-
-    specialAbilities.textContent = `Special Abilities: ${JSON.stringify(monster.special_abilities)}`;
-    actions.textContent = `Actions: ${JSON.stringify(monster.actions)}`;
-    legendaryActions.textContent = `Legendary Actions: ${JSON.stringify(monster.legendary_actions)}`;
+    challengeInfo.textContent = `Challenge Rating: ${monster.challenge_rating} (${monster.xp} XP)`
 
     img.src = `https://www.dnd5eapi.co${monster.image}`
 
@@ -96,14 +94,9 @@ function createMonsterSheet(monster) {
     section4.appendChild(dmgResistances);
     section4.appendChild(dmgImmunities);
     section4.appendChild(conditionalImmunities);
-    // section4.appendChild(sensesSection);
     section4.appendChild(senses);
     section4.appendChild(languages);
     section4.appendChild(challengeInfo);
-
-    section5.appendChild(specialAbilities);
-    section5.appendChild(actions);
-    section5.appendChild(legendaryActions);
 
     section.appendChild(section1);
     section.appendChild(section2);
@@ -111,12 +104,20 @@ function createMonsterSheet(monster) {
     section.appendChild(section4);
     section.appendChild(section5);
     section.appendChild(speedSection);
-
-    console.log(monster.speed)
-    console.log(Object.entries(monster.speed))
-    console.log(monster.speed.walk)
+    section.appendChild(senseSection);
+    section.appendChild(specialAbilitiesSection);
+    section.appendChild(actionsSection);
+    section.appendChild(legendaryActionsSection);
+    section.appendChild(armorClassSection);
+    section.appendChild(proficienciesSection);
     
     displaySpeed(monster)
+    displaySense(monster)
+    displaySpecialAbilities(monster)
+    displayLegendaryActions(monster)
+    displayActions(monster)
+    displayArmorClass(monster)
+    displayProficiencies(monster)
 }
 
 function loadMonsterList(monsters) {
@@ -175,7 +176,73 @@ function displaySpeed(entry) {
 
   for (const trait of traits) {
     const listItems = document.createElement("h2");
-    listItems.textContent = `${trait[0]} + ${trait[1]}`
+    listItems.textContent = `${trait[0]}: ${trait[1]}`
+    section.appendChild(listItems);
+  }
+}
+
+function displaySense(entry) {
+  const traits = Object.entries(entry.senses)
+  const section = document.getElementById("senses");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait[0]}: ${trait[1]}`
+    section.appendChild(listItems);
+  }
+}
+
+function displaySpecialAbilities(entry) {
+  const traits = entry.special_abilities
+  const section = document.getElementById("specialAbilities");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait.name}: ${trait.desc}`
+    section.appendChild(listItems);
+  }
+}
+
+function displayActions(entry) {
+  const traits = entry.actions
+  const section = document.getElementById("specialAbilities");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait.name}: ${trait.desc}`
+    section.appendChild(listItems);
+  }
+}
+
+function displayLegendaryActions(entry) {
+  const traits = entry.legendary_actions
+  const section = document.getElementById("specialAbilities");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait.name}: ${trait.desc}`
+    section.appendChild(listItems);
+  }
+}
+
+function displayArmorClass(entry) {
+  const traits = entry.armor_class
+  const section = document.getElementById("specialAbilities");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait.type}: ${trait.value}`
+    section.appendChild(listItems);
+  }
+}
+
+function displayProficiencies(entry) {
+  const traits = entry.proficiencies
+  const section = document.getElementById("specialAbilities");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait.proficiency.name}: +${trait.value}`
     section.appendChild(listItems);
   }
 }
