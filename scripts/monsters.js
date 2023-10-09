@@ -1,5 +1,8 @@
 function createMonsterSheet(monster) {
-    const section = document.querySelector("main")
+  const section = document.getElementById(monster.index);
+
+  var entryLength = section.childNodes.length
+  if (entryLength == 0) {
 
     const section1 = document.createElement("section");
     const section2 = document.createElement("section");
@@ -33,7 +36,6 @@ function createMonsterSheet(monster) {
     const monsterDesc = document.createElement("h2");
     const hitPointsInfo = document.createElement("h2");
     const armorClass = document.createElement("h2");
-    const actions = document.createElement("h2");
     const cha = document.createElement("h2");
     const conditionalImmunities = document.createElement("h2");
     const con = document.createElement("h2");
@@ -48,9 +50,6 @@ function createMonsterSheet(monster) {
     const wis = document.createElement("h2");
     const senses = document.createElement("h2");
     const languages = document.createElement("h2");
-    const specialAbilities = document.createElement("h2");
-    const legendaryActions = document.createElement("h2");
-    const img = document.createElement("img");
 
     monsterName.textContent = `Name: ${monster.name}`;
     monsterDesc.textContent = `${monster.size} ${monster.type}, ${monster.alignment}`
@@ -72,9 +71,6 @@ function createMonsterSheet(monster) {
     languages.textContent = `Languages: ${monster.languages}`;
     challengeInfo.textContent = `Challenge Rating: ${monster.challenge_rating} (${monster.xp} XP)`
 
-    img.src = `https://www.dnd5eapi.co${monster.image}`
-
-    section1.appendChild(img)
     section1.appendChild(monsterName);
     section1.appendChild(monsterDesc);
 
@@ -110,7 +106,7 @@ function createMonsterSheet(monster) {
     section.appendChild(legendaryActionsSection);
     section.appendChild(armorClassSection);
     section.appendChild(proficienciesSection);
-    
+      
     displaySpeed(monster)
     displaySense(monster)
     displaySpecialAbilities(monster)
@@ -118,57 +114,46 @@ function createMonsterSheet(monster) {
     displayActions(monster)
     displayArmorClass(monster)
     displayProficiencies(monster)
-}
-
-function loadMonsterList(monsters) {
-  const section = document.querySelector("section")
-
-  for (let entry = 0; entry < monsters.count; entry++) {
-    const listItem = document.createElement("h2")
-    listItem.textContent = monsters.results[entry].name
-    console.log(monsters.results[entry].name)
-    section.appendChild(listItem)
+  } else if (entryLength != 0) {
+    section.innerHTML = ""
   }
 }
 
-async function fetchAPI(input) {
+function loadMonsterList(monsters) {
+  const section = document.querySelector("main")
+
+  for (let entry = 0; entry < monsters.count; entry++) {
+    const listItem = document.createElement("h1")
+    listItem.textContent = monsters.results[entry].name
+    const monsterInfo = document.createElement("section")
+    monsterInfo.setAttribute("id", monsters.results[entry].index)
+    section.appendChild(listItem)
+    section.appendChild(monsterInfo)
+  }
+}
+
+async function fillMonsterInfo(input) {
     const response = await fetch(`https://www.dnd5eapi.co/api/monsters/${input}`);
     const monster = await response.json();
-    console.log(monster);
 
     createMonsterSheet(monster)
 }
 
-// fetchAPI("goblin")
-fetchAPI("adult-black-dragon")
+async function fetchAPI() {
+  const response = await fetch(`https://www.dnd5eapi.co/api/monsters`);
+  const monsters = await response.json();
 
-// async function fetchAPI() {
-//   const response = await fetch(`https://www.dnd5eapi.co/api/monsters`);
-//   const monsters = await response.json();
-//   console.log(monsters);
-//   console.log(monsters.count);
+  loadMonsterList(monsters)
+}
 
-//   // console.log(monsters.results[monster].index);
+fetchAPI()
 
-//   loadMonsterList(monsters)
-// }
-
-// fetchAPI()
-
-// TO DO
-// Not all creatures have images + 
-// the ones that have images are AI generated
-// Find new source
-// Format page
-
-// The code below activates whenever you click on the page
-// Modify it to active the entry funtion whenever you click
-// An entries name
-// I'd like it to make a drop down
-
-// document.addEventListener('click', function(event) {
-//   console.log(event.target.textContent);
-// });
+document.addEventListener('click', function(event) {
+  var entry = event.target.textContent
+  entry = entry.toLowerCase()
+  entry = entry.replace(/ /g, "-")
+  fillMonsterInfo(entry)
+});
 
 function displaySpeed(entry) {
   const traits = Object.entries(entry.speed)
