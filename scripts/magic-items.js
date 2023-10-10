@@ -1,162 +1,68 @@
 function createMonsterSheet(monster) {
-    const section = document.querySelector("section")
+  const section = document.getElementById(monster.index);
+
+  var entryLength = section.childNodes.length
+  if (entryLength == 0) {
 
     const section1 = document.createElement("section");
-    const section2 = document.createElement("section");
-    const section3 = document.createElement("section");
-    const section4 = document.createElement("section");
-    const section5 = document.createElement("section");
-    const proficiencySection = document.createElement("section");
-    const sensesSection = document.createElement("section");
 
-    const monsterName = document.createElement("h2");
-    const monsterDesc = document.createElement("h2");
-    const hitPointsInfo = document.createElement("h2");
-    const armorClass = document.createElement("h2");
-    const actions = document.createElement("h2");
-    const cha = document.createElement("h2");
-    const conditionalImmunities = document.createElement("h2");
-    const con = document.createElement("h2");
-    const dmgImmunities = document.createElement("h2");
-    const dmgResistances = document.createElement("h2");
-    const dmgVulnerabilities = document.createElement("h2");
-    const dex = document.createElement("h2");
-    const challengeInfo = document.createElement("h2");
-    const speed = document.createElement("h2");
-    const str = document.createElement("h2");
-    const int = document.createElement("h2");
-    const wis = document.createElement("h2");
-    const senses = document.createElement("h2");
-    const languages = document.createElement("h2");
-    const specialAbilities = document.createElement("h2");
-    const legendaryActions = document.createElement("h2");
-    const img = document.createElement("img");
+    const name = document.createElement("h2");
+    const equipmentCategory = document.createElement("h2");
+    const rarity = document.createElement("h2");
+    const desc = document.createElement("h2");
 
-    monsterName.textContent = `Name: ${monster.name}`;
-    monsterDesc.textContent = `${monster.size} ${monster.type}, ${monster.alignment}`
+    name.textContent = `Name: ${monster.name}`;
+    equipmentCategory.textContent = `Equipment Category: ${monster.equipment_category.name}`
+    rarity.textContent = `Rarity: ${monster.rarity.name}`;
+    desc.textContent = `Constitution: ${monster.desc}`;
 
-    armorClass.textContent = `AC: ${JSON.stringify(monster.armor_class)}`;
-    hitPointsInfo.textContent = `Hit Points: ${monster.hit_points} (${monster.hit_dice}) (${monster.hit_points_roll})`
-    speed.textContent = `Speed: ${JSON.stringify(monster.speed)}`;
-
-    cha.textContent = `Charisma: ${monster.charisma}`;
-    con.textContent = `Constitution: ${monster.constitution}`;
-    dex.textContent = `Dexterity: ${monster.dexterity}`;
-    str.textContent = `Strength: ${monster.strength}`;
-    int.textContent = `Intelligence: ${monster.intelligence}`;
-    wis.textContent = `Wisdom: ${monster.wisdom}`;
-
-    const proficiencies = monster.proficiencies;
-    for (const proficiency of proficiencies) {
-      const listItem = document.createElement("h2");
-      listItem.textContent = JSON.stringify(proficiency);
-      proficiencySection.appendChild(listItem);
-    }
-
-    dmgVulnerabilities.textContent = `Damage Vulnerabilities: ${monster.damage_vulnerabilities}`;
-    dmgResistances.textContent = `Damage Resistances: ${monster.damage_resistances}`;
-    dmgImmunities.textContent = `Damage Immunities: ${monster.damage_immunities}`;
-    conditionalImmunities.textContent = `Condition Immunities: ${monster.condition_immunities}`;
-
-    senses.textContent = `Senses: ${JSON.stringify(monster.senses)}`;
-    // const senses = monster.senses;
-    // for (const sense of senses) {
-    //   const listItems = document.createElement("h2");
-    //   listItems.textContent = JSON.stringify(sense);
-    //   sensesSection.appendChild(listItems);
-    // }
-
-    languages.textContent = `Languages: ${monster.languages}`;
-    challengeInfo.textContent = `Challenge: ${monster.challenge_rating} (${monster.xp} XP)`
-
-    specialAbilities.textContent = `Special Abilities: ${JSON.stringify(monster.special_abilities)}`;
-    actions.textContent = `Actions: ${JSON.stringify(monster.actions)}`;
-    legendaryActions.textContent = `Legendary Actions: ${JSON.stringify(monster.legendary_actions)}`;
-
-    img.src = `https://www.dnd5eapi.co${monster.image}`
-
-    section1.appendChild(img)
-    section1.appendChild(monsterName);
-    section1.appendChild(monsterDesc);
-
-    section2.appendChild(armorClass);
-    section2.appendChild(hitPointsInfo);
-    section2.appendChild(speed);
-
-    section3.appendChild(str);
-    section3.appendChild(dex);
-    section3.appendChild(con); 
-    section3.appendChild(int);
-    section3.appendChild(wis);
-    section3.appendChild(cha);
-
-    section4.appendChild(dmgVulnerabilities);
-    section4.appendChild(proficiencySection);
-    section4.appendChild(dmgResistances);
-    section4.appendChild(dmgImmunities);
-    section4.appendChild(conditionalImmunities);
-    // section4.appendChild(sensesSection);
-    section4.appendChild(senses);
-    section4.appendChild(languages);
-    section4.appendChild(challengeInfo);
-
-    section5.appendChild(specialAbilities);
-    section5.appendChild(actions);
-    section5.appendChild(legendaryActions);
+    section1.appendChild(name)
+    section1.appendChild(equipmentCategory);
+    section1.appendChild(rarity);
+    section1.appendChild(desc);
 
     section.appendChild(section1);
-    section.appendChild(section2);
-    section.appendChild(section3);
-    section.appendChild(section4);
-    section.appendChild(section5);
-}
-
-function loadMonsterList(monsters) {
-  const section = document.querySelector("section")
-
-  for (let entry = 0; entry < monsters.count; entry++) {
-    const listItem = document.createElement("h2")
-    listItem.textContent = monsters.results[entry].name
-    console.log(monsters.results[entry].name)
-    section.appendChild(listItem)
+  
+  } else if (entryLength != 0) {
+    section.innerHTML = ""
   }
 }
 
-async function fetchAPI(input) {
-    const response = await fetch(`https://www.dnd5eapi.co/api/monsters/${input}`);
+function loadMonsterList(monsters) {
+  const section = document.querySelector("main")
+
+  for (let entry = 0; entry < monsters.count; entry++) {
+    const listItem = document.createElement("h1")
+    listItem.textContent = monsters.results[entry].name
+    const monsterInfo = document.createElement("section")
+    monsterInfo.setAttribute("id", monsters.results[entry].index)
+    section.appendChild(listItem)
+    section.appendChild(monsterInfo)
+  }
+}
+
+async function fillMagicItemsInfo(input) {
+    const response = await fetch(`https://www.dnd5eapi.co/api/magic-items/${input}`);
     const monster = await response.json();
-    console.log(monster);
 
     createMonsterSheet(monster)
 }
 
-// fetchAPI("goblin")
-// fetchAPI("adult-black-dragon")
-
 async function fetchAPI() {
   const response = await fetch(`https://www.dnd5eapi.co/api/magic-items`);
   const monsters = await response.json();
-  console.log(monsters);
-  console.log(monsters.count);
-
-  // console.log(monsters.results[monster].index);
 
   loadMonsterList(monsters)
 }
 
 fetchAPI()
 
-// TO DO
-// Not all creatures have images + 
-// the ones that have images are AI generated
-// Find new source
-// Format page
-
-// The code below activates whenever you click on the page
-// Modify it to active the entry funtion whenever you click
-// An entries name
-// I'd like it to make a drop down
-
-// document.addEventListener('click', function(event) {
-//   console.log(event.target.textContent);
-// });
+document.addEventListener('click', function(event) {
+  var entry = event.target.textContent
+  entry = entry.toLowerCase()
+  entry = entry.replace(/ /g, "-")
+  entry = entry.replace(/\(|\)/g, "")
+  if (event.target.nodeName == "H1") {
+  fillMagicItemsInfo(entry)
+  }
+});
