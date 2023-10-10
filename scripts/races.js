@@ -43,7 +43,7 @@ function createMonsterSheet(entry) {
     languages.textContent = `Languages:`;
     language_desc.textContent = `Language Description: ${entry.language_desc}`;
     traits.textContent = `Traits:`;
-    subraces.textContent = `Subraces: ${entry.subraces[0].name}`;
+    // subraces.textContent = `Subraces: ${entry.subraces[0].name}`;
 
     section1.appendChild(race);
     section1.appendChild(speed);
