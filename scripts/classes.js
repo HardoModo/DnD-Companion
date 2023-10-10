@@ -1,118 +1,116 @@
 function createMonsterSheet(entry) {
-  const section = document.querySelector("main")
+  const section = document.getElementById(entry.index);
 
-  const section1 = document.createElement("section");
-  const section2 = document.createElement("section");
-  const section3 = document.createElement("section");
-  const section4 = document.createElement("section");
-  const section5 = document.createElement("section");
+  var entryLength = section.childNodes.length
+  if (entryLength == 0) {
+    
+    const section1 = document.createElement("section");
+    const section2 = document.createElement("section");
+    const section3 = document.createElement("section");
+    const section4 = document.createElement("section");
+    const section5 = document.createElement("section");
 
-  const proficiencyChoicesSection = document.createElement("section");
-  proficiencyChoicesSection.setAttribute("id", "proficiencyChoices")
+    const proficiencyChoicesSection = document.createElement("section");
+    proficiencyChoicesSection.setAttribute("id", "proficiencyChoices")
 
-  const proficienciesSection = document.createElement("section");
-  proficienciesSection.setAttribute("id", "proficiencies")
+    const proficienciesSection = document.createElement("section");
+    proficienciesSection.setAttribute("id", "proficiencies")
 
-  const savingThrowsSection = document.createElement("section");
-  savingThrowsSection.setAttribute("id", "savingThrows")
+    const savingThrowsSection = document.createElement("section");
+    savingThrowsSection.setAttribute("id", "savingThrows")
 
-  const startingEquipmentSection = document.createElement("section");
-  startingEquipmentSection.setAttribute("id", "startingEquipment")
+    const startingEquipmentSection = document.createElement("section");
+    startingEquipmentSection.setAttribute("id", "startingEquipment")
 
-  const startingEquipmentOptionsSection = document.createElement("section");
-  startingEquipmentOptionsSection.setAttribute("id", "startingEquipmentOptions")
+    const startingEquipmentOptionsSection = document.createElement("section");
+    startingEquipmentOptionsSection.setAttribute("id", "startingEquipmentOptions")
 
-  const multiClassingSection = document.createElement("section");
-  multiClassingSection.setAttribute("id", "multiClassing")
+    const multiClassingSection = document.createElement("section");
+    multiClassingSection.setAttribute("id", "multiClassing")
 
-  const spellCastingSection = document.createElement("section");
-  spellCastingSection.setAttribute("id", "spellCasting")
+    const spellCastingSection = document.createElement("section");
+    spellCastingSection.setAttribute("id", "spellCasting")
 
-  const name = document.createElement("h2");
-  const hit_die = document.createElement("h2");
-  const proficiency_choices = document.createElement("h2");
-  const proficiencies = document.createElement("h2");
-  const saving_throws = document.createElement("h2");
-  const starting_equipment = document.createElement("h2");
-  const starting_equipment_options = document.createElement("h2");
-  const multi_classing = document.createElement("h2");
-  const spellcasting = document.createElement("h2");
-  const spells = document.createElement("h2");
+    const name = document.createElement("h2");
+    const hit_die = document.createElement("h2");
+    const proficiency_choices = document.createElement("h2");
+    const proficiencies = document.createElement("h2");
+    const saving_throws = document.createElement("h2");
+    const starting_equipment = document.createElement("h2");
+    const starting_equipment_options = document.createElement("h2");
+    const multi_classing = document.createElement("h2");
+    const spellcasting = document.createElement("h2");
+    const spells = document.createElement("h2");
 
-  name.textContent = `Name: ${entry.name}`;
-  hit_die.textContent = `Hit Die: ${entry.hit_die}`;
-  spells.textContent = `Spells: ${entry.spells}`;
+    name.textContent = `Name: ${entry.name}`;
+    hit_die.textContent = `Hit Die: ${entry.hit_die}`;
+    spells.textContent = `Spells: ${entry.spells}`;
 
-  // img.src = `https://www.dnd5eapi.co${entry.image}`
+    section1.appendChild(name);
+    section1.appendChild(hit_die);
+    section1.appendChild(proficiency_choices);
+    section1.appendChild(proficiencies);
+    section1.appendChild(saving_throws);
+    section1.appendChild(starting_equipment);
+    section1.appendChild(starting_equipment_options);
+    section1.appendChild(multi_classing);
+    section1.appendChild(spellcasting);
+    section1.appendChild(spells);
 
-  // section1.appendChild(img)
-  section1.appendChild(name);
-  section1.appendChild(hit_die);
-  section1.appendChild(proficiency_choices);
-  section1.appendChild(proficiencies);
-  section1.appendChild(saving_throws);
-  section1.appendChild(starting_equipment);
-  section1.appendChild(starting_equipment_options);
-  section1.appendChild(multi_classing);
-  section1.appendChild(spellcasting);
-  section1.appendChild(spells);
+    section.appendChild(section1);
+    section.appendChild(section2);
+    section.appendChild(section3);
+    section.appendChild(section4);
+    section.appendChild(section5);
 
-  section.appendChild(section1);
-  section.appendChild(section2);
-  section.appendChild(section3);
-  section.appendChild(section4);
-  section.appendChild(section5);
+    section.appendChild(proficiencyChoicesSection)
+    section.appendChild(proficienciesSection)
+    section.appendChild(savingThrowsSection)
+    section.appendChild(startingEquipmentSection)
+    section.appendChild(startingEquipmentOptionsSection)
+    section.appendChild(multiClassingSection)
+    section.appendChild(spellCastingSection)
 
-  section.appendChild(proficiencyChoicesSection)
-  section.appendChild(proficienciesSection)
-  section.appendChild(savingThrowsSection)
-  section.appendChild(startingEquipmentSection)
-  section.appendChild(startingEquipmentOptionsSection)
-  section.appendChild(multiClassingSection)
-  section.appendChild(spellCastingSection)
-
-  displayProficiencyChoices(entry)
-  displayProficiencies(entry)
-  displaySavingThrows(entry)
-  displayStartingEquipment(entry)
-  displayStartingEquipmentOptions(entry)
-  displayMultiClassing(entry)
-  displaySpellCasting(entry)  
+    displayProficiencyChoices(entry)
+    displayProficiencies(entry)
+    displaySavingThrows(entry)
+    displayStartingEquipment(entry)
+    displayStartingEquipmentOptions(entry)
+    displayMultiClassing(entry)
+    displaySpellCasting(entry)  
+  } else if (entryLength != 0) {
+    section.innerHTML = ""
+  }
 }
 
 function loadMonsterList(monsters) {
-const section = document.querySelector("section")
+  const section = document.querySelector("main")
 
-for (let entry = 0; entry < monsters.count; entry++) {
-  const listItem = document.createElement("h2")
-  listItem.textContent = monsters.results[entry].name
-  console.log(monsters.results[entry].name)
-  section.appendChild(listItem)
-}
+  for (let entry = 0; entry < monsters.count; entry++) {
+    const listItem = document.createElement("h1")
+    listItem.textContent = monsters.results[entry].name
+    const monsterInfo = document.createElement("section")
+    monsterInfo.setAttribute("id", monsters.results[entry].index)
+    section.appendChild(listItem)
+    section.appendChild(monsterInfo)
+  }
 }
 
-async function fetchAPI(input) {
+async function fillClassInfo(input) {
   const response = await fetch(`https://www.dnd5eapi.co/api/classes/${input}`);
   const monster = await response.json();
-  console.log(monster);
 
   createMonsterSheet(monster)
 }
 
-fetchAPI("druid")
+async function fetchAPI() {
+  const response = await fetch(`https://www.dnd5eapi.co/api/classes`);
+  const monsters = await response.json();
 
-// async function fetchAPI() {
-//   const response = await fetch(`https://www.dnd5eapi.co/api/classes`);
-//   const monsters = await response.json();
-//   console.log(monsters);
-//   console.log(monsters.count);
+  loadMonsterList(monsters)
+}
 
-//   // console.log(monsters.results[monster].index);
-
-//   loadMonsterList(monsters)
-// }
-
-// fetchAPI()
+fetchAPI()
 
 // TO DO
 // Not all creatures have images + 
@@ -127,9 +125,15 @@ fetchAPI("druid")
 // An entries name
 // I'd like it to make a drop down
 
-// document.addEventListener('click', function(event) {
-//   console.log(event.target.textContent);
-// });
+document.addEventListener('click', function(event) {
+  var entry = event.target.textContent
+  entry = entry.toLowerCase()
+  entry = entry.replace(/ /g, "-")
+  entry = entry.replace(/\(|\)/g, "")
+  if (event.target.nodeName == "H1") {
+  fillClassInfo(entry)
+  }
+});
 
 function displaySense(entry) {
   const traits = Object.entries(entry.senses)

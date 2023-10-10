@@ -152,7 +152,10 @@ document.addEventListener('click', function(event) {
   var entry = event.target.textContent
   entry = entry.toLowerCase()
   entry = entry.replace(/ /g, "-")
+  entry = entry.replace(/\(|\)/g, "")
+  if (event.target.nodeName == "H1") {
   fillMonsterInfo(entry)
+  }
 });
 
 function displaySpeed(entry) {
