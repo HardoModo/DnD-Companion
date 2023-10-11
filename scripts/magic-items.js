@@ -14,7 +14,7 @@ function createMonsterSheet(monster) {
     name.textContent = `Name: ${monster.name}`;
     equipmentCategory.textContent = `Equipment Category: ${monster.equipment_category.name}`
     rarity.textContent = `Rarity: ${monster.rarity.name}`;
-    desc.textContent = `Constitution: ${monster.desc}`;
+    desc.textContent = `Description: ${monster.desc}`;
 
     section1.appendChild(name)
     section1.appendChild(equipmentCategory);
