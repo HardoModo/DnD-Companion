@@ -113,12 +113,13 @@ function createSheet(entry) {
 
   function loadList(entries) {
     const section = document.querySelector("main")
+    section.innerHTML = ""
   
     for (let entry = 0; entry < entries.count; entry++) {
       const listItem = document.createElement("h1")
       listItem.textContent = entries.results[entry].name
-      const monsterInfo = document.createElement("section")
-      monsterInfo.setAttribute("id", entries.results[entry].index)
+      const entryInfo = document.createElement("section")
+      entryInfo.setAttribute("id", entries.results[entry].index)
       section.appendChild(listItem)
       section.appendChild(entryInfo)
     }
@@ -138,8 +139,7 @@ function createSheet(entry) {
     loadList(entries)
   }
   
-//   fetchAPI()
-// Use this to preload the game with default info
+  fetchAPI("classes")
   
   // TO DO
   // Not all creatures have images + 
