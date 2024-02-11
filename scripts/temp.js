@@ -116,6 +116,10 @@ function createMoreMonsterSections(section) {
   section.appendChild(proficienciesSection);
 }
 
+function createMoreItemSections(section) {
+  console.log("Yup")
+}
+
 function createMoreConSections(section) {
   console.log("Yup")
 }
@@ -324,6 +328,23 @@ function createMonsterElements(entry, section) {
   section.appendChild(section5);
 }
 
+function createItemElements(entry, section) {
+  const name = document.createElement("h2");
+  const equipmentCategory = document.createElement("h2");
+  const rarity = document.createElement("h2");
+  const desc = document.createElement("h2");
+
+  name.textContent = `Name: ${entry.name}`;
+  equipmentCategory.textContent = `Equipment Category: ${entry.equipment_category.name}`
+  rarity.textContent = `Rarity: ${entry.rarity.name}`;
+  desc.textContent = `Description: ${entry.desc}`;
+
+  section.appendChild(name)
+  section.appendChild(equipmentCategory);
+  section.appendChild(rarity);
+  section.appendChild(desc);
+}
+
 function createConElements(entry, section) {
   const name = document.createElement("h2");
   const desc = document.createElement("h2");
@@ -396,15 +417,11 @@ function createSheet(chapter, entry) {
       createMonsterElements(entry, section)
       tempMonsterSpells(entry)
     } else if (chapter == 'magic-items') {
-      createMoreItemSections(section)
       createItemElements(entry, section)
-      tempItemSpells(entry)
     } else if (chapter == 'conditions') {
       createConElements(entry, section)
     }
     
-    
-
   } else if (entryLength != 0) {
     section.innerHTML = ""
   }
