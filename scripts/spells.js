@@ -54,9 +54,9 @@ function createMonsterSheet(entry) {
     classes.textContent = `Classes:`;
     subclasses.textContent = `Subclasses:`;
 
-    // img.src = `https://www.dnd5eapi.co${entry.image}`
+    img.src = `https://www.dnd5eapi.co${entry.image}`
 
-    // section1.appendChild(img)
+    section1.appendChild(img)
     section1.appendChild(name);
     section1.appendChild(desc);
     section1.appendChild(higher_level);
