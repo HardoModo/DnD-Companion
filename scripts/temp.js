@@ -116,14 +116,6 @@ function createMoreMonsterSections(section) {
   section.appendChild(proficienciesSection);
 }
 
-function createMoreItemSections(section) {
-  console.log("Yup")
-}
-
-function createMoreConSections(section) {
-  console.log("Yup")
-}
-
 // Section 3
 
 function createClassElements(entry, section) {
@@ -387,7 +379,7 @@ function tempMonsterSpells(entry) {
   displayLegendaryActions(entry)
   displayActions(entry)
   displayArmorClass(entry)
-  displayProficiencies(entry)
+  displayMonsterProficiencies(entry)
 }
 
 // Main Funtion
@@ -401,20 +393,20 @@ function createSheet(chapter, entry) {
     // createMainSections(section)
   
     if (chapter == 'classes') {
-      createMoreClassSections(section)
       createClassElements(entry, section)
+      createMoreClassSections(section)
       tempNameClass(entry)
     } else if (chapter == 'spells') {
-      createMoreSpellSections(section)
       createSpellElements(entry, section)
+      createMoreSpellSections(section)
       tempNameSpells(entry)
     } else if (chapter == 'races') {
-      createMoreRaceSections(section)
       createRaceElements(entry, section)
+      createMoreRaceSections(section)
       tempRacesSpells(entry)
     } else if (chapter == 'monsters') {
-      createMoreMonsterSections(section)
       createMonsterElements(entry, section)
+      createMoreMonsterSections(section)
       tempMonsterSpells(entry)
     } else if (chapter == 'magic-items') {
       createItemElements(entry, section)
@@ -722,7 +714,7 @@ function displayArmorClass(entry) {
   }
 }
 
-function displayProficiencies(entry) {
+function displayMonsterProficiencies(entry) {
   const traits = entry.proficiencies
   const section = document.getElementById("specialAbilities");
 
