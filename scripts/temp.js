@@ -1,11 +1,14 @@
 var testGlobal
 
+// Continue trying to make a global array with global variables to reduce function sizes
+
 // var classArray = [name, hit_die, proficiency_choices, proficiencies, saving_throws, starting_equipment,
 //   starting_equipment_options, multi_classing, spellcasting, spells]
 
 // Section 1
 
 function createMainSections(section) {
+  // This section should be moved to the top of the main function
   const section1 = document.createElement("section");
   const section2 = document.createElement("section");
   const section3 = document.createElement("section");
@@ -65,6 +68,21 @@ function createMoreSpellSections(section) {
   section.appendChild(damageSection);
   section.appendChild(classesSection);
   section.appendChild(subclassSection);
+}
+
+function createMoreRaceSections(section) {
+  const languageSection = document.createElement("section");
+  languageSection.setAttribute("id", "language")
+
+  const traitSection = document.createElement("section");
+  traitSection.setAttribute("id", "traits")
+
+  const profSection = document.createElement("section");
+  profSection.setAttribute("id", "start_prof")
+
+  section.appendChild(traitSection);
+  section.appendChild(languageSection);
+  section.appendChild(profSection);
 }
 
 // Section 3
@@ -153,6 +171,47 @@ function createSpellElements(entry, section) {
   section.appendChild(subclasses);
 }
 
+function createRaceElements(entry, section) {
+  const race = document.createElement("h2");
+  const speed = document.createElement("h2");
+  const ability_bonuses = document.createElement("h2");
+  const age = document.createElement("h2");
+  const alignment = document.createElement("h2");
+  const size = document.createElement("h2");
+  const size_description = document.createElement("h2");
+  const starting_proficiencies = document.createElement("h2");
+  const languages = document.createElement("h2");
+  const language_desc = document.createElement("h2");
+  const traits = document.createElement("h2");
+  const subraces = document.createElement("h2");
+
+  race.textContent = `Name: ${entry.name}`;
+  speed.textContent = `Speed: ${entry.speed}`;
+  ability_bonuses.textContent = `Ability Bonus: ${entry.ability_bonuses[0].ability_score.name} +${entry.ability_bonuses[0].bonus}`;
+  age.textContent = `Age: ${entry.age}`;
+  alignment.textContent = `Alignment: ${entry.alignment}`;
+  size.textContent = `Size: ${entry.size}`;
+  size_description.textContent = `Size Description: ${entry.size_description}`;
+  starting_proficiencies.textContent = `Starting Proficiencies:`;
+  languages.textContent = `Languages:`;
+  language_desc.textContent = `Language Description: ${entry.language_desc}`;
+  traits.textContent = `Traits:`;
+  // subraces.textContent = `Subraces: ${entry.subraces[0].name}`;
+
+  section.appendChild(race);
+  section.appendChild(speed);
+  section.appendChild(ability_bonuses);
+  section.appendChild(age);
+  section.appendChild(alignment);
+  section.appendChild(size);
+  section.appendChild(size_description);
+  section.appendChild(starting_proficiencies);
+  section.appendChild(language_desc);
+  section.appendChild(languages);
+  section.appendChild(traits);
+  section.appendChild(subraces);
+}
+
 // Section 4
 
 function tempNameClass(entry) {
@@ -169,6 +228,12 @@ function tempNameSpells(entry) {
   displayDamage(entry)
   displayClasses(entry)
   displaySubclasses(entry)
+}
+
+function tempRacesSpells(entry) {
+  displayTraits(entry)
+  displayLanguge(entry)
+  displayProf(entry)
 }
 
 // Main Funtion
@@ -189,6 +254,10 @@ function createSheet(chapter, entry) {
       createMoreSpellSections(section)
       createSpellElements(entry, section)
       tempNameSpells(entry)
+    } else if (chapter == 'races') {
+      createMoreRaceSections(section)
+      createRaceElements(entry, section)
+      tempRacesSpells(entry)
     }
     
     
@@ -382,6 +451,41 @@ function displayClasses(entry) {
 function displaySubclasses(entry) {
   const traits = entry.subclasses
   const section = document.getElementById("subclass");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = trait.name;
+    section.appendChild(listItems);
+  }
+}
+
+// Race Functions
+
+function displayTraits(entry) {
+  const traits = entry.traits
+  const section = document.getElementById("traits");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = trait.name;
+    section.appendChild(listItems);
+  }
+}
+
+function displayLanguge(entry) {
+  const traits = entry.languages
+  const section = document.getElementById("language");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = trait.name;
+    section.appendChild(listItems);
+  }
+}
+
+function displayProf(entry) {
+  const traits = entry.starting_proficiencies
+  const section = document.getElementById("start_prof");
 
   for (const trait of traits) {
     const listItems = document.createElement("h2");
