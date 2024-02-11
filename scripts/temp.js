@@ -85,6 +85,10 @@ function createMoreRaceSections(section) {
   section.appendChild(profSection);
 }
 
+function createMoreConSections(section) {
+  console.log("Yup")
+}
+
 // Section 3
 
 function createClassElements(entry, section) {
@@ -212,6 +216,17 @@ function createRaceElements(entry, section) {
   section.appendChild(subraces);
 }
 
+function createConElements(entry, section) {
+  const name = document.createElement("h2");
+  const desc = document.createElement("h2");
+
+  name.textContent = `Name: ${entry.name}`;
+  desc.textContent = `Description: ${entry.desc}`
+
+  section.appendChild(name);
+  section.appendChild(desc);
+}
+
 // Section 4
 
 function tempNameClass(entry) {
@@ -258,6 +273,16 @@ function createSheet(chapter, entry) {
       createMoreRaceSections(section)
       createRaceElements(entry, section)
       tempRacesSpells(entry)
+    } else if (chapter == 'monsters') {
+      createMoreMonsterSections(section)
+      createMonsterElements(entry, section)
+      tempMonsterSpells(entry)
+    } else if (chapter == 'magic-items') {
+      createMoreItemSections(section)
+      createItemElements(entry, section)
+      tempItemSpells(entry)
+    } else if (chapter == 'conditions') {
+      createConElements(entry, section)
     }
     
     
