@@ -85,6 +85,37 @@ function createMoreRaceSections(section) {
   section.appendChild(profSection);
 }
 
+function createMoreMonsterSections(section) {
+  const speedSection = document.createElement("section");
+  speedSection.setAttribute("id", "speed")
+
+  const senseSection = document.createElement("section");
+  senseSection.setAttribute("id", "senses")
+
+  const specialAbilitiesSection = document.createElement("section");
+  specialAbilitiesSection.setAttribute("id", "specialAbilities")
+
+  const actionsSection = document.createElement("section");
+  actionsSection.setAttribute("id", "actions")
+
+  const legendaryActionsSection = document.createElement("section");
+  legendaryActionsSection.setAttribute("id", "legendaryActions")
+
+  const armorClassSection = document.createElement("section");
+  armorClassSection.setAttribute("id", "armorClass")
+
+  const proficienciesSection = document.createElement("section");
+  proficienciesSection.setAttribute("id", "proficiencies")
+
+  section.appendChild(speedSection);
+  section.appendChild(senseSection);
+  section.appendChild(specialAbilitiesSection);
+  section.appendChild(actionsSection);
+  section.appendChild(legendaryActionsSection);
+  section.appendChild(armorClassSection);
+  section.appendChild(proficienciesSection);
+}
+
 function createMoreConSections(section) {
   console.log("Yup")
 }
@@ -216,6 +247,83 @@ function createRaceElements(entry, section) {
   section.appendChild(subraces);
 }
 
+function createMonsterElements(entry, section) {
+  const section1 = document.createElement("section");
+  const section2 = document.createElement("section");
+  const section3 = document.createElement("section");
+  const section4 = document.createElement("section");
+  const section5 = document.createElement("section");
+  const proficiencySection = document.createElement("section");
+
+  const monsterName = document.createElement("h2");
+  const monsterDesc = document.createElement("h2");
+  const hitPointsInfo = document.createElement("h2");
+  const armorClass = document.createElement("h2");
+  const cha = document.createElement("h2");
+  const conditionalImmunities = document.createElement("h2");
+  const con = document.createElement("h2");
+  const dmgImmunities = document.createElement("h2");
+  const dmgResistances = document.createElement("h2");
+  const dmgVulnerabilities = document.createElement("h2");
+  const dex = document.createElement("h2");
+  const challengeInfo = document.createElement("h2");
+  const speed = document.createElement("h2");
+  const str = document.createElement("h2");
+  const int = document.createElement("h2");
+  const wis = document.createElement("h2");
+  const senses = document.createElement("h2");
+  const languages = document.createElement("h2");
+
+  monsterName.textContent = `Name: ${entry.name}`;
+  monsterDesc.textContent = `${entry.size} ${entry.type}, ${entry.alignment}`
+
+  hitPointsInfo.textContent = `Hit Points: ${entry.hit_points} (${entry.hit_dice}) (${entry.hit_points_roll})`
+
+  cha.textContent = `Charisma: ${entry.charisma}`;
+  con.textContent = `Constitution: ${entry.constitution}`;
+  dex.textContent = `Dexterity: ${entry.dexterity}`;
+  str.textContent = `Strength: ${entry.strength}`;
+  int.textContent = `Intelligence: ${entry.intelligence}`;
+  wis.textContent = `Wisdom: ${entry.wisdom}`;
+
+  dmgVulnerabilities.textContent = `Damage Vulnerabilities: ${entry.damage_vulnerabilities}`;
+  dmgResistances.textContent = `Damage Resistances: ${entry.damage_resistances}`;
+  dmgImmunities.textContent = `Damage Immunities: ${entry.damage_immunities}`;
+  conditionalImmunities.textContent = `Condition Immunities: ${entry.condition_immunities}`;
+
+  languages.textContent = `Languages: ${entry.languages}`;
+  challengeInfo.textContent = `Challenge Rating: ${entry.challenge_rating} (${entry.xp} XP)`
+
+  section1.appendChild(monsterName);
+  section1.appendChild(monsterDesc);
+
+  section2.appendChild(armorClass);
+  section2.appendChild(hitPointsInfo);
+  section2.appendChild(speed);
+
+  section3.appendChild(str);
+  section3.appendChild(dex);
+  section3.appendChild(con); 
+  section3.appendChild(int);
+  section3.appendChild(wis);
+  section3.appendChild(cha);
+
+  section4.appendChild(dmgVulnerabilities);
+  section4.appendChild(proficiencySection);
+  section4.appendChild(dmgResistances);
+  section4.appendChild(dmgImmunities);
+  section4.appendChild(conditionalImmunities);
+  section4.appendChild(senses);
+  section4.appendChild(languages);
+  section4.appendChild(challengeInfo);
+
+  section.appendChild(section1);
+  section.appendChild(section2);
+  section.appendChild(section3);
+  section.appendChild(section4);
+  section.appendChild(section5);
+}
+
 function createConElements(entry, section) {
   const name = document.createElement("h2");
   const desc = document.createElement("h2");
@@ -249,6 +357,16 @@ function tempRacesSpells(entry) {
   displayTraits(entry)
   displayLanguge(entry)
   displayProf(entry)
+}
+
+function tempMonsterSpells(entry) {
+  displaySpeed(entry)
+  displaySense(entry)
+  displaySpecialAbilities(entry)
+  displayLegendaryActions(entry)
+  displayActions(entry)
+  displayArmorClass(entry)
+  displayProficiencies(entry)
 }
 
 // Main Funtion
@@ -515,6 +633,85 @@ function displayProf(entry) {
   for (const trait of traits) {
     const listItems = document.createElement("h2");
     listItems.textContent = trait.name;
+    section.appendChild(listItems);
+  }
+}
+
+// Monster Functions
+
+function displaySpeed(entry) {
+  const traits = Object.entries(entry.speed)
+  const section = document.getElementById("speed");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait[0]}: ${trait[1]}`
+    section.appendChild(listItems);
+  }
+}
+
+function displaySense(entry) {
+  const traits = Object.entries(entry.senses)
+  const section = document.getElementById("senses");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait[0]}: ${trait[1]}`
+    section.appendChild(listItems);
+  }
+}
+
+function displaySpecialAbilities(entry) {
+  const traits = entry.special_abilities
+  const section = document.getElementById("specialAbilities");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait.name}: ${trait.desc}`
+    section.appendChild(listItems);
+  }
+}
+
+function displayActions(entry) {
+  const traits = entry.actions
+  const section = document.getElementById("specialAbilities");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait.name}: ${trait.desc}`
+    section.appendChild(listItems);
+  }
+}
+
+function displayLegendaryActions(entry) {
+  const traits = entry.legendary_actions
+  const section = document.getElementById("specialAbilities");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait.name}: ${trait.desc}`
+    section.appendChild(listItems);
+  }
+}
+
+function displayArmorClass(entry) {
+  const traits = entry.armor_class
+  const section = document.getElementById("specialAbilities");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait.type}: ${trait.value}`
+    section.appendChild(listItems);
+  }
+}
+
+function displayProficiencies(entry) {
+  const traits = entry.proficiencies
+  const section = document.getElementById("specialAbilities");
+
+  for (const trait of traits) {
+    const listItems = document.createElement("h2");
+    listItems.textContent = `${trait.proficiency.name}: +${trait.value}`
     section.appendChild(listItems);
   }
 }
